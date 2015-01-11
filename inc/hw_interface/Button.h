@@ -14,7 +14,7 @@
 
 namespace input{
 enum event_type{
-    EVENT_VALUE_0,
+    EVENT_VALUE_0 = 0,
     EVENT_VALUE_1,
     EVENT_FALL_EDGE,
     EVENT_RISE_EDGE,
@@ -27,9 +27,9 @@ enum event_type{
 
 /** used to store value in fifo  */
 struct ButtonEvent : public Message{
-    ButtonEvent(int origin, input::event_type type)
+    /*ButtonEvent(int origin, input::event_type type)
         : Message(origin), origin(origin), type(type), tp(std::chrono::high_resolution_clock::now())
-    {}
+    {}*/
     
     ButtonEvent(int origin, input::event_type type, int v)
         : Message(origin), origin(origin), type(type), tp(std::chrono::high_resolution_clock::now())
@@ -50,6 +50,7 @@ struct ButtonEvent : public Message{
     };
 };
 
+#define DELAY_BETWEEN_SAMPLE 5//2////5good//2//5//1
 
 /**
 Button is an abstract class used to implement behaviour when a button used by human
@@ -66,8 +67,8 @@ public:
     WARNING : Button instances should be created in a single thread, one at-a-time. Else weird GPIO read occur
     @param gpio_pin read from this pin
     @param pull_resistor <0 is pull down, >0 is pull up, 0 is no pull */
-    Button(int gpio_n, std::shared_ptr<ThreadSafeQ<std::shared_ptr<Message> > > bus, int pull_resistor=0) 
-        : m_gpio_num(gpio_n), m_bus(bus), shouldRun(true) , m_pull_resistor(pull_resistor), m_last_read(-1), m_paused(false)
+    Button(int gpio_n, std::shared_ptr<ThreadSafeQ<std::shared_ptr<Message> > > bus, int pull_resistor=0, unsigned int wait_millisec=DELAY_BETWEEN_SAMPLE) 
+        : m_gpio_num(gpio_n), m_bus(bus), shouldRun(true) , m_pull_resistor(pull_resistor), m_last_read(-1), m_paused(false), m_wait_millisec(wait_millisec)
     {
         init();
     }
@@ -102,6 +103,10 @@ protected:
     
     /** if paused, save CPU cycle --> save energy */
     bool m_paused;
+    
+    /** millisec to wait between sample
+    useful with different types of buttons that requires different sample for accuracy */
+    unsigned int m_wait_millisec;
 };
 
 #endif

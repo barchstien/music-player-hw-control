@@ -8,21 +8,6 @@
 #include <memory>
 #include <mutex>
 
-/** pin map */
-//many are useless, and will be remove with upcoming HW layout
-#define GPIO_RELAY_0 17
-#define GPIO_RELAY_1 27
-#define GPIO_RELAY_POWER 22
-#define GPIO_FRONT_LED 12
-
-#define GPIO_AUX_1 24
-#define GPIO_AUX_2 23
-#define GPIO_ONOFF 4
-#define GPIO_BUTTON_UP 25
-#define GPIO_BUTTON_DOWN 16
-#define GPIO_SWITCH_NET_MODE 5
-#define GPIO_SWITCH_MODE 6
-
 
 /** Utilities that cannot be classed in other files */
 class Util {

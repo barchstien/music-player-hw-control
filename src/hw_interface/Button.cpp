@@ -6,7 +6,7 @@
 /** number of sample for 1 read*/
 #define NUM_OF_SAMPLE 5////10good//25//10//20//5
 /** milliseconds beteen sample*/
-#define DELAY_BETWEEN_SAMPLE 5//2////5good//2//5//1
+//#define DELAY_BETWEEN_SAMPLE 5//2////5good//2//5//1
 /** minimum % of samples to confirm 1 read value */
 #define RATIO_THRESHOLD 59//70good
 
@@ -53,7 +53,7 @@ void Button::sample_thread_handler(){
         int tmp = 0;
         for(int i=0; i<NUM_OF_SAMPLE; i++){
             tmp += RPi_GPIO::read(m_gpio_num);
-            std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_BETWEEN_SAMPLE));
+            std::this_thread::sleep_for(std::chrono::milliseconds(m_wait_millisec));
         }
         int v = -1;
         if (tmp*100 > NUM_OF_SAMPLE * RATIO_THRESHOLD){

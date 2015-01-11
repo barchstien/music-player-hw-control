@@ -9,11 +9,25 @@
 #include <vector>
 #include <thread>
 
+/** pin map */
+//many are useless, and will be remove with upcoming HW layout
+#define GPIO_RELAY_0 17
+#define GPIO_RELAY_1 27
+#define GPIO_RELAY_POWER 22
+#define GPIO_FRONT_LED 12
+
+#define GPIO_AUX_1 24
+#define GPIO_AUX_2 23
+#define GPIO_ONOFF 4
+#define GPIO_BUTTON_UP 25
+#define GPIO_BUTTON_DOWN 16
+#define GPIO_SWITCH_NET_MODE 5
+#define GPIO_SWITCH_MODE 6
 
 using namespace std;
 void gpio_tests(){
     //// tests nes HW ////
-    #if 1
+    #if 0
     ///relay tests
     RPi_GPIO::exportPin(GPIO_RELAY_0);
     RPi_GPIO::setOutput(GPIO_RELAY_0);
@@ -121,8 +135,31 @@ void gpio_tests(){
 int main(int argc, char *argv[]){
     LOG << "-------------------------\nStarting music-player-hw-control " << std::endl;
     
-    gpio_tests();
-    #if 0
+    ///relay tests
+    RPi_GPIO::exportPin(GPIO_RELAY_0);
+    RPi_GPIO::setOutput(GPIO_RELAY_0);
+    RPi_GPIO::exportPin(GPIO_RELAY_1);
+    RPi_GPIO::setOutput(GPIO_RELAY_1);
+    RPi_GPIO::exportPin(GPIO_RELAY_POWER);
+    RPi_GPIO::setOutput(GPIO_RELAY_POWER);
+    
+    RPi_GPIO::exportPin(GPIO_FRONT_LED);
+    RPi_GPIO::setOutput(GPIO_FRONT_LED);
+    
+    //amp power ON
+    LOG << "Amp power : on" << endl;
+    RPi_GPIO::write(GPIO_RELAY_POWER, 1);
+    this_thread::sleep_for(chrono::milliseconds(250));
+    
+    //input dac
+    LOG << "input : DAC" << endl;
+    RPi_GPIO::write(GPIO_RELAY_0, 0);
+    this_thread::sleep_for(chrono::milliseconds(250));
+    RPi_GPIO::write(GPIO_RELAY_1, 1);
+    this_thread::sleep_for(chrono::milliseconds(250));
+    
+    //gpio_tests();
+    #if 1
     //button array, used pause/resume sample and save CPU cycles/energy
     std::shared_ptr<std::vector<std::shared_ptr<Button> > > button_vector(new std::vector<std::shared_ptr<Button> >());
     
@@ -153,8 +190,9 @@ int main(int argc, char *argv[]){
         m = bus->deque();
         if (0 != m){
             LOG << m->print() << std::endl;
+        }else{
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(250));
     }
     #endif
     
