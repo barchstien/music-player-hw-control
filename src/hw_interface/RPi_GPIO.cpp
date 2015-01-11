@@ -101,7 +101,7 @@ This avoids to access out of bound memory of pin_array */
 void RPi_GPIO::exportPin(unsigned int pin){
     PIN_NUM_CHECK(pin);
     std::fstream fs;
-    fs.open ("/sys/class/gpio/export", std::fstream::in | std::fstream::out | std::fstream::binary);
+    fs.open ("/sys/class/gpio/export", std::fstream::out | std::fstream::binary);
     if (! fs.is_open()){
         LOG << "Failed openning /sys/class/gpio/export" << endl;
         return;
@@ -137,7 +137,7 @@ void RPi_GPIO::unexportPin(unsigned int pin){
     pin_array[pin].fd_value.close();
     //unexport
     std::fstream fs;
-    fs.open ("/sys/class/gpio/unexport", std::fstream::in | std::fstream::out | std::fstream::binary);
+    fs.open ("/sys/class/gpio/unexport", std::fstream::out | std::fstream::binary);
     if (! fs.is_open()){
         LOG << "Failed openning /sys/class/gpio/unexport" << endl;
         return;

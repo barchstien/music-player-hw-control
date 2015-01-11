@@ -3,56 +3,17 @@
 #include "hw_interface/PushButton.h"
 #include "hw_interface/SwitchButton.h"
 
+#include "hw_interface/RPi_GPIO.h"
+
 #include <chrono>
 #include <vector>
 #include <thread>
 
-int main(int argc, char *argv[]){
-    LOG << "-------------------------\nStarting music-player-hw-control " << std::endl;
-    
-    //button array, used pause/resume sample and save CPU cycles/energy
-    std::shared_ptr<std::vector<std::shared_ptr<Button> > > button_vector(new std::vector<std::shared_ptr<Button> >());
-    
-    std::shared_ptr<ThreadSafeQ<std::shared_ptr<Message> > > bus(new ThreadSafeQ<std::shared_ptr<Message> >());
-    
-    ////buttons
-    //pull up
-    std::shared_ptr<PushButton> button_up(new PushButton(GPIO_BUTTON_UP, bus, 1, 1));
-    button_vector->push_back(button_up);
-    //pull up
-    std::shared_ptr<PushButton> button_down(new PushButton(GPIO_BUTTON_DOWN, bus, 1, 1));
-    button_vector->push_back(button_down);
-    //no pull
-    std::shared_ptr<SwitchButton> switch_aux_small(new SwitchButton(GPIO_AUX_1, bus));
-    button_vector->push_back(switch_aux_small);
-    //pull up
-    std::shared_ptr<SwitchButton> switch_onoff(new SwitchButton(GPIO_ONOFF, bus, 1));
-    button_vector->push_back(switch_onoff);
-    //pull up
-    std::shared_ptr<SwitchButton> switch_mode(new SwitchButton(GPIO_SWITCH_MODE, bus, 1));
-    button_vector->push_back(switch_mode);
-    
-    std::this_thread::sleep_for(std::chrono::milliseconds(2500));
-    LOG "----------------------" << std::endl;
-    
-    std::shared_ptr<Message> m = 0;
-    while (true){
-        m = bus->deque();
-        if (0 != m){
-            LOG << m->print() << std::endl;
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(250));
-    }
-    
-    LOG << "End World" << std::endl;
-    return 0;
-}
 
-
-
+using namespace std;
 void gpio_tests(){
     //// tests nes HW ////
-    #if 0
+    #if 1
     ///relay tests
     RPi_GPIO::exportPin(GPIO_RELAY_0);
     RPi_GPIO::setOutput(GPIO_RELAY_0);
@@ -155,5 +116,52 @@ void gpio_tests(){
     #endif
     
 }
+
+
+int main(int argc, char *argv[]){
+    LOG << "-------------------------\nStarting music-player-hw-control " << std::endl;
+    
+    gpio_tests();
+    #if 0
+    //button array, used pause/resume sample and save CPU cycles/energy
+    std::shared_ptr<std::vector<std::shared_ptr<Button> > > button_vector(new std::vector<std::shared_ptr<Button> >());
+    
+    std::shared_ptr<ThreadSafeQ<std::shared_ptr<Message> > > bus(new ThreadSafeQ<std::shared_ptr<Message> >());
+    
+    ////buttons
+    //pull up
+    std::shared_ptr<PushButton> button_up(new PushButton(GPIO_BUTTON_UP, bus, 1, 1));
+    button_vector->push_back(button_up);
+    //pull up
+    std::shared_ptr<PushButton> button_down(new PushButton(GPIO_BUTTON_DOWN, bus, 1, 1));
+    button_vector->push_back(button_down);
+    //no pull
+    std::shared_ptr<SwitchButton> switch_aux_small(new SwitchButton(GPIO_AUX_1, bus));
+    button_vector->push_back(switch_aux_small);
+    //pull up
+    std::shared_ptr<SwitchButton> switch_onoff(new SwitchButton(GPIO_ONOFF, bus, 1));
+    button_vector->push_back(switch_onoff);
+    //pull up
+    std::shared_ptr<SwitchButton> switch_mode(new SwitchButton(GPIO_SWITCH_MODE, bus, 1));
+    button_vector->push_back(switch_mode);
+    
+    std::this_thread::sleep_for(std::chrono::milliseconds(2500));
+    LOG "----------------------" << std::endl;
+    
+    std::shared_ptr<Message> m = 0;
+    while (true){
+        m = bus->deque();
+        if (0 != m){
+            LOG << m->print() << std::endl;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(250));
+    }
+    #endif
+    
+    LOG << "End World" << std::endl;
+    return 0;
+}
+
+
 
 
