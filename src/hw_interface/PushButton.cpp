@@ -9,7 +9,7 @@ int PushButton::process_read(int v){
     }else{
         e = std::shared_ptr<ButtonEvent> (new ButtonEvent(m_gpio_num, input::EVENT_PRESSED));
     }
-    m_coordinator->enqueMessage(e);
+    m_bus->enque(e);
     
     return 0;
 }

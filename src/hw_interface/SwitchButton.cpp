@@ -10,7 +10,7 @@ int SwitchButton::process_read(int v){
         //v == 0
         e = std::shared_ptr<ButtonEvent> (new ButtonEvent(m_gpio_num, input::EVENT_VALUE_0, v));
     }
-    m_coordinator->enqueMessage(e);
+    m_bus->enque(e);
     return 0;
 }
 

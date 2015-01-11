@@ -11,8 +11,8 @@ public:
     /** Create a Switch Button
     @param gpio_pin read from this pin
     @param pull_resistor <0 is pull down, >0 is pull up, 0 is no pull */
-    SwitchButton(int gpio_n, std::shared_ptr<module> c, int pull_resistor=0)
-        : Button(gpio_n, c, pull_resistor)
+    SwitchButton(int gpio_n, std::shared_ptr<ThreadSafeQ<std::shared_ptr<Message> > > bus, int pull_resistor=0)
+        : Button(gpio_n, bus, pull_resistor)
     {}
     //~SwitchButton();
     virtual int process_read(int v);

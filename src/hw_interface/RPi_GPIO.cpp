@@ -104,6 +104,7 @@ void RPi_GPIO::exportPin(unsigned int pin){
     fs.open ("/sys/class/gpio/export", std::fstream::in | std::fstream::out | std::fstream::binary);
     if (! fs.is_open()){
         LOG << "Failed openning /sys/class/gpio/export" << endl;
+        return;
     }
     fs << std::to_string(pin);
     fs.close();

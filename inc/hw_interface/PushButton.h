@@ -12,8 +12,8 @@ public:
     @param gpio_pin read from this pin
     @param pull_resistor <0 is pull down, >0 is pull up, 0 is no pull 
     @param value when button is not pressed */
-    PushButton(int gpio_n, std::shared_ptr<module> c, int no_press_value, int pull_resistor=0)
-        : Button(gpio_n, c, pull_resistor), no_press_value(no_press_value)
+    PushButton(int gpio_n, std::shared_ptr<ThreadSafeQ<std::shared_ptr<Message> > > bus, int no_press_value, int pull_resistor=0)
+        : Button(gpio_n, bus, pull_resistor), no_press_value(no_press_value)
     {
         m_last_read = no_press_value;
     }

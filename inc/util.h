@@ -2,13 +2,14 @@
 #define _UTIL_
 
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <deque>
 #include <memory>
 #include <mutex>
 
 /** pin map */
-//radio box
+//many are useless, and will be remove with upcoming HW layout
 #define GPIO_RELAY_0 17
 #define GPIO_RELAY_1 27
 #define GPIO_RELAY_POWER 22
@@ -22,14 +23,6 @@
 #define GPIO_SWITCH_NET_MODE 5
 #define GPIO_SWITCH_MODE 6
 
-/** Message code for coordinator */
-namespace msg {
-    enum code{
-        JOINED_WIFI_NET,
-        CREATED_WIFI_NET,
-        NO_KNOWN_ESSID
-    };
-}
 
 /** Utilities that cannot be classed in other files */
 class Util {
@@ -53,17 +46,22 @@ public:
 #define LOG std::cout << Util::get_time_string() << " : "
 
 struct Message{
-    Message(int cmd) : cmd(cmd) {}
-    Message(int cmd, std::string str) : cmd(cmd), data_string(str) {}
+    Message(int label) : label(label) {}
+    Message(int label, std::string str) : label(label), data_string(str) {}
     ~Message() {}
     
     /** the command to execute */
-    int cmd;
+    int label;
     /** data to be used for executing cmd */
     std::string data_string;
     
     static const int MESSAGE_TYPE = 0;
     virtual int message_type(){return MESSAGE_TYPE;};
+    virtual std::string print(){
+        std::stringstream ss;
+        ss << label << " : " << data_string;
+        return ss.str();
+    };
 };
 
 template <class T> class ThreadSafeQ {

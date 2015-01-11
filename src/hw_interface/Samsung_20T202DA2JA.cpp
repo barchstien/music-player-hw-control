@@ -272,7 +272,7 @@ int Samsung_20T202DA2JA::threadHandler(){
     while (m_shouldRun){
         m = m_q.deque();
         if (0 != m){
-            if (SCROLL_2ND_LINE == m->cmd){
+            if (SCROLL_2ND_LINE == m->label){
                 string_line_2 = m->data_string;
                 LOG << "SCROLL_2ND_LINE : " << string_line_2 << std::endl;
                 if (string_line_2.size() > 0){

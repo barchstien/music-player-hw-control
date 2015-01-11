@@ -43,6 +43,11 @@ struct ButtonEvent : public Message{
     
     static const int MESSAGE_TYPE = 1;
     virtual int message_type(){return MESSAGE_TYPE;};
+    virtual std::string print(){
+        std::stringstream ss;
+        ss << " - origin:" << origin << " - type:" << type << " - value:" << value;
+        return ss.str();
+    };
 };
 
 
@@ -61,8 +66,8 @@ public:
     WARNING : Button instances should be created in a single thread, one at-a-time. Else weird GPIO read occur
     @param gpio_pin read from this pin
     @param pull_resistor <0 is pull down, >0 is pull up, 0 is no pull */
-    Button(int gpio_n, std::shared_ptr<module> c, int pull_resistor=0) 
-        : m_gpio_num(gpio_n), m_coordinator(c), shouldRun(true) , m_pull_resistor(pull_resistor), m_last_read(-1), m_paused(false)
+    Button(int gpio_n, std::shared_ptr<ThreadSafeQ<std::shared_ptr<Message> > > bus, int pull_resistor=0) 
+        : m_gpio_num(gpio_n), m_bus(bus), shouldRun(true) , m_pull_resistor(pull_resistor), m_last_read(-1), m_paused(false)
     {
         init();
     }
@@ -84,7 +89,8 @@ protected:
     //last read_value
     int m_last_read;
     
-    std::shared_ptr<module> m_coordinator;
+    //std::shared_ptr<module> m_coordinator;
+    std::shared_ptr<ThreadSafeQ<std::shared_ptr<Message> > > m_bus;
     
     /** init GPIO and start the thread */
     int init();
