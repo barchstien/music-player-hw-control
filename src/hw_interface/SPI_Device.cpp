@@ -1,4 +1,4 @@
-#include "hw/SPI_Device.h"
+#include "hw_interface/SPI_Device.h"
 
 #include "util.h"
 

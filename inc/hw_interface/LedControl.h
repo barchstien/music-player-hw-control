@@ -1,7 +1,7 @@
 #ifndef _LED_CONTROL_
 #define _LED_CONTROL_
 
-#include "modules/module.h"
+#include "module.h"
 
 /** Control a LED,
 including a dedicated thread to blink it */

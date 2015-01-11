@@ -1,7 +1,7 @@
 #ifndef _SWITCH_BUTTON_H_
 #define _SWITCH_BUTTON_H_
 
-#include "hw/Button.h"
+#include "hw_interface/Button.h"
 
 /** a push button
 It can be pressed for a time t to trigger an LONG_PRESS event

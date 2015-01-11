@@ -1,5 +1,5 @@
 
-#include "hw/Samsung_20T202DA2JA.h"
+#include "hw_interface/Samsung_20T202DA2JA.h"
 //#include "util.h"
 
 //default SPI properties
@@ -63,7 +63,7 @@ void Samsung_20T202DA2JA::blink(bool enable){
     else
         blink_ctrl = OFF;
     //send_spi_word(0xf8, 0x8 + display_ctrl + cursor_ctrl + blink_ctrl);
-    char buff[] = {0xf8, 0x8 + display_ctrl + cursor_ctrl + blink_ctrl};
+    char buff[] = {0xf8, static_cast<char>(0x8 + display_ctrl + cursor_ctrl + blink_ctrl)};
     send_buff(buff, 2);
     m_screen_mutex.unlock();
 }
@@ -75,7 +75,7 @@ void Samsung_20T202DA2JA::cursor(bool enable){
     else
         cursor_ctrl = OFF;
     //send_spi_word(0xf8, 0x8 + display_ctrl + cursor_ctrl + blink_ctrl);
-    char buff[] = {0xf8, 0x8 + display_ctrl + cursor_ctrl + blink_ctrl};
+    char buff[] = {0xf8, static_cast<char>(0x8 + display_ctrl + cursor_ctrl + blink_ctrl)};
     send_buff(buff, 2);
     m_screen_mutex.unlock();
 }

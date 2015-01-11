@@ -9,7 +9,7 @@
 //  Revised: 15-Feb-2013 */
 
 
-#include <hw/RPi_GPIO.h>
+#include <hw_interface/RPi_GPIO.h>
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -34,7 +34,7 @@ include_directories(inc)
 
 # if no link to pthread, runtime error when starting thread
 find_package(Threads REQUIRED)
-TARGET_LINK_LIBRARIES(wifisoundsystem ${CMAKE_THREAD_LIBS_INIT})
+TARGET_LINK_LIBRARIES(mp-hw-control ${CMAKE_THREAD_LIBS_INIT})
 
 #boost
 #find_package(Boost 1.50.0 EXACT COMPONENTS program_options REQUIRED )

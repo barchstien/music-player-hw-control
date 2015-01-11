@@ -2,11 +2,11 @@
 #define _Samsung_20T202DA2JA_
 
 #include <string>
-#include "hw/SPI_Device.h"
+#include "hw_interface/SPI_Device.h"
 
 //class Samsung_20T202DA2JA;
 //class module;
-#include "modules/module.h"
+#include "module.h"
 
 /**
 This class allows to drive a Samsung 20T202DA2JA independently from SPI interface

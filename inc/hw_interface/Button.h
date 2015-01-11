@@ -7,7 +7,7 @@
 #include <mutex>
 #include <memory>
 
-#include "modules/module.h"
+#include "module.h"
 #include "util.h"
 
 #define LONG_PRESS_MILLISEC 3000

@@ -120,6 +120,4 @@ void gpio_tests(){
     
 }
 
-#endif
-
 

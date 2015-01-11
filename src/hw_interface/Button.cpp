@@ -1,5 +1,5 @@
-#include "hw/Button.h"
-#include "hw/RPi_GPIO.h"
+#include "hw_interface/Button.h"
+#include "hw_interface/RPi_GPIO.h"
 #include <chrono>
 #include "util.h"
 

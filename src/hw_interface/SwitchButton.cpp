@@ -1,4 +1,4 @@
-#include "hw/SwitchButton.h"
+#include "hw_interface/SwitchButton.h"
 
 //SwitchButton::~SwitchButton(){}
 
