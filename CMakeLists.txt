@@ -1,0 +1,47 @@
+#music-player-hw-control
+cmake_minimum_required(VERSION 2.8)
+project(music-player-hw-control)
+add_definitions(-std=c++0x)
+
+add_executable(mp-hw-control
+    src/main.cpp
+    src/module.cpp
+    src/util.cpp
+    src/hw_interface/SPI_Device.cpp
+    src/hw_interface/Samsung_20T202DA2JA.cpp
+    src/hw_interface/RPi_GPIO.cpp
+    src/hw_interface/Button.cpp
+    src/hw_interface/PushButton.cpp
+    src/hw_interface/SwitchButton.cpp
+    src/hw_interface/LedControl.cpp)
+
+include_directories(inc)
+
+#curl
+#include_directories(/usr/local/include)
+#TARGET_LINK_LIBRARIES(wifisoundsystem curl)
+
+#include_directories(/usr/include/gstreamer-1.0)
+#include_directories(/usr/include/glib-2.0)
+#include_directories(/usr/lib/arm-linux-gnueabihf/glib-2.0/include)
+#include_directories(/usr/include/libxml2)
+##### g_value_get_boolean not define
+#message (STATUS ${CMAKE_THREAD_LIBS_INIT})
+#TARGET_LINK_LIBRARIES(wifisoundsystem gobject-2.0)
+# for g_source_remove
+#TARGET_LINK_LIBRARIES(wifisoundsystem glib-2.0)
+#TARGET_LINK_LIBRARIES(wifisoundsystem gstreamer-1.0)
+
+# if no link to pthread, runtime error when starting thread
+find_package(Threads REQUIRED)
+TARGET_LINK_LIBRARIES(wifisoundsystem ${CMAKE_THREAD_LIBS_INIT})
+
+#boost
+#find_package(Boost 1.50.0 EXACT COMPONENTS program_options REQUIRED )
+#find_package(Boost 1.50.0 EXACT REQUIRED )
+#INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
+#useless so far coz property_tree is header only, but keep for future if needed
+#TARGET_LINK_LIBRARIES(wifisoundsystem ${Boost_LIBRARIES} )
+
+#debug
+#cmake -DCMAKE_BUILD_TYPE=Debug ..
