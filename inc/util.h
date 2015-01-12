@@ -16,7 +16,7 @@ public:
     WARNING : this may block execution if bash command never ends
     @param cmd the command to execute
     @return the string returned by the bash command or "ERROR" if Pipe couldn't be created */
-    static std::string exec_read_bash(const char* cmd);
+    static std::string exec_read_bash(std::string cmd);
     
     /** execute a bash command and return the pid of the new process
     DOES NOT read the output of the forked process

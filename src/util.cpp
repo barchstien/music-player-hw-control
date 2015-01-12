@@ -2,8 +2,8 @@
 #include "util.h"
 #include <unistd.h>
 
-std::string Util::exec_read_bash(const char* cmd) {
-    FILE* pipe = popen(cmd, "r");
+std::string Util::exec_read_bash(std::string cmd) {
+    FILE* pipe = popen(cmd.c_str(), "r");
     if (!pipe) return "ERROR";
     char buffer[128];
     std::string result = "";

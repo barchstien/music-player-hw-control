@@ -3,7 +3,7 @@
 
 #include "hw_interface/Button.h"
 
-#define DELAY_BETWEEN_SAMPLE_SWITCH_BUTTON 100
+#define DELAY_BETWEEN_SAMPLE_SWITCH_BUTTON 50
 
 /** a push button
 It can be pressed for a time t to trigger an LONG_PRESS event

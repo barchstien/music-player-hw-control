@@ -7,6 +7,7 @@ add_executable(mp-hw-control
     src/main.cpp
     src/module.cpp
     src/util.cpp
+    src/mpc_control.cpp
     src/hw_interface/SPI_Device.cpp
     src/hw_interface/Samsung_20T202DA2JA.cpp
     src/hw_interface/RPi_GPIO.cpp
