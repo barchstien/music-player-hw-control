@@ -1,0 +1,11 @@
+[Unit]
+Description=MPD HW control After=network.target
+
+[Service]
+ExecStart=/root/dev/music-player-hw-control/build/mp-hw-control
+TimeoutSec=0
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

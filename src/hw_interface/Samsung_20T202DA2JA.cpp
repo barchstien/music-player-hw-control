@@ -4,7 +4,7 @@
 
 //default SPI properties
 // NB : 1 000 000 is too high !!
-#define Samsung_20T202DA2JA_SPEED 50000//50000//100000 very few times a letter is missing
+#define Samsung_20T202DA2JA_SPEED 100000//50000//100000 very few times a letter is missing
                                         //i think that was due to bad 3.3v
 #define Samsung_20T202DA2JA_DELAY 0
 #define Samsung_20T202DA2JA_WORD_LENGTH 0 //8 + 0 = 8bit
