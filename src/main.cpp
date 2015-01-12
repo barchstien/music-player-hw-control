@@ -161,7 +161,7 @@ int main(int argc, char *argv[]){
     RPi_GPIO::setOutput(GPIO_FRONT_LED);
     
     //amp power ON
-    LOG << "Amp power : on" << endl;
+    /*LOG << "Amp power : on" << endl;
     RPi_GPIO::write(GPIO_RELAY_POWER, 1);
     this_thread::sleep_for(chrono::milliseconds(250));
     
@@ -170,7 +170,7 @@ int main(int argc, char *argv[]){
     RPi_GPIO::write(GPIO_RELAY_0, 0);
     this_thread::sleep_for(chrono::milliseconds(250));
     RPi_GPIO::write(GPIO_RELAY_1, 1);
-    this_thread::sleep_for(chrono::milliseconds(250));
+    this_thread::sleep_for(chrono::milliseconds(250));*/
     
     //led
     //doesn't seam to work... hw problem ?

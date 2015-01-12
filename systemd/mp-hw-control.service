@@ -2,6 +2,7 @@
 Description=MPD HW control After=network.target
 
 [Service]
+WorkingDirectory=/root/dev/music-player-hw-control/build
 ExecStart=/root/dev/music-player-hw-control/build/mp-hw-control
 TimeoutSec=0
 Restart=always
