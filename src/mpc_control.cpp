@@ -49,6 +49,7 @@ void MpcControl::repeat(bool b){
 
 
 void MpcControl::save_current_playlist(){
+    Util::exec_read_bash("mpc rm " SAVE_PLAYLIST_NAME);
     Util::exec_read_bash("mpc save " SAVE_PLAYLIST_NAME);
 }
 

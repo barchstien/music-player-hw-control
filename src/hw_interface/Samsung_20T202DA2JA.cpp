@@ -43,9 +43,9 @@ Samsung_20T202DA2JA::~Samsung_20T202DA2JA(){
 }
 
 void Samsung_20T202DA2JA::clear(){
-    //bad idea coz it conflict with other when using clear()
+    //bad idea coz it takes time to take effect and lead to conflicts
     //scroll_on_2nd_line(std::string(""));
-    
+    disable_scroll();
     
     //send_spi_word(0xf8, 0x01);
     char buff[] = {0xf8, 0x01};
@@ -261,7 +261,7 @@ int Samsung_20T202DA2JA::threadHandler(){
     
     //2nd line string to scroll horizontally
     std::string string_line_2;
-    bool enable = false;
+    m_enable_scroll = false;
     std::shared_ptr<Message> m = 0;
     int offset = 0;
     int increment = 1; //or -1 if scrolling backward
@@ -276,9 +276,9 @@ int Samsung_20T202DA2JA::threadHandler(){
                 string_line_2 = m->data_string;
                 LOG << "SCROLL_2ND_LINE : " << string_line_2 << std::endl;
                 if (string_line_2.size() > 0){
-                    enable = true;
+                    m_enable_scroll = true;
                 }else{
-                    enable = false;
+                    m_enable_scroll = false;
                     //blank second line
                     m_screen_mutex.lock();
                     this->cursor_home_no_lock();
@@ -293,7 +293,7 @@ int Samsung_20T202DA2JA::threadHandler(){
         }
         
         int64_t now = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
-        if (enable && ((now - next_anim_timestamp) >= 0)){
+        if (m_enable_scroll && ((now - next_anim_timestamp) >= 0)){
             
             m_screen_mutex.lock();
             
@@ -321,3 +321,9 @@ int Samsung_20T202DA2JA::threadHandler(){
     }
     return 0;
 }
+
+void Samsung_20T202DA2JA::disable_scroll(){
+    m_enable_scroll = false;
+}
+
+

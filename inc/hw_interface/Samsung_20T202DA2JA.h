@@ -63,7 +63,11 @@ public:
     @param v_align 0 left, 1 right, 2 center */
     void write_line(int line_number, std::string str, int v_align=0);
     
+    /** scroll a string longer than 20 on 2nd line
+    call disable_scroll() to disable scrolling */
     void scroll_on_2nd_line(std::string);
+    /** disable scrolling */
+    void disable_scroll();
     
     static const int V_ALIGN_LEFT=0;
     static const int V_ALIGN_RIGHT=1;
@@ -89,6 +93,7 @@ private:
     
 protected:
     int init();
+    bool m_enable_scroll;
     virtual int threadHandler();
 };
 #endif
