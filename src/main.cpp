@@ -40,6 +40,7 @@ using namespace std;
 /*
 TODO
     _ resume current playlist with current track and current time !!!
+    _ detect when web UI was used since last switch action (compare current to Webradio ??)
 
 */
 
