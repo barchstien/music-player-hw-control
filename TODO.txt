@@ -1,0 +1,6 @@
+TODO detect when playlist is changed outside HW
+    monitor mpd events using "mpc idleloop"
+    if "playlist" appears without 1 or more "player" event(s)
+    ... it means that Queue have been changed
+
+
