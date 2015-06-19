@@ -1,0 +1,1 @@
+A C++ program, that controls Volumio using Music Player Client (for Music Player Daemon). It also supports switching audio input, allowing the addition of an Aux input.
