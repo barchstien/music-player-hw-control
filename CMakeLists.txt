@@ -14,7 +14,8 @@ add_executable(mp-hw-control
     src/hw_interface/Button.cpp
     src/hw_interface/PushButton.cpp
     src/hw_interface/SwitchButton.cpp
-    src/hw_interface/LedControl.cpp)
+    src/hw_interface/LedControl.cpp
+    src/hw_interface/PCM512x_spi.cpp)
 
 include_directories(inc)
 
