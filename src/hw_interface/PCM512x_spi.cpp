@@ -1,4 +1,4 @@
-#include "hw_interface/PCM512x_spi.h"
+    #include "hw_interface/PCM512x_spi.h"
 
 using namespace std;
 
@@ -9,8 +9,8 @@ using namespace std;
 //? do define with reg num + config ?? #define PCM512X_PLL_D_0000
 #define PCM512X_SPI_WL 0
 
-#define REG_READ(x) (x << 1)
-#define REG_WRITE(x) ((x << 1) | 1)
+#define REG_WRITE(x) ((x << 1) & 0b11111110)
+#define REG_READ(x)  ((x << 1) | 0b00000001)
 
 //register address
 #define PCM512X_PLL_REF 0x0d
@@ -23,6 +23,8 @@ using namespace std;
 #define PCM512X_PLL_DDAC 0x1c
 #define PCM512X_PLL_DNCP 0x1d
 #define PCM512X_PLL_DOSR 0x1e
+
+#define PCM512X_I2S_FORMAT_LENGTH 0x28
 
 PCM512x_spi::PCM512x_spi(int channel) 
     : SPI_Device(channel, 
@@ -87,6 +89,12 @@ PCM512x_spi::PCM512x_spi(int channel)
     //DOSR 8
     buff[0] = REG_WRITE(PCM512X_PLL_DOSR);
     buff[1] = 0b0000111;
+    send_buff(buff, 2);
+    this_thread::sleep_for(chrono::milliseconds(50));
+    
+    //i2s format and word length (16bit) 0b00000000
+    buff[0] = REG_WRITE(PCM512X_I2S_FORMAT_LENGTH);
+    buff[1] = 0b00000000;
     send_buff(buff, 2);
     this_thread::sleep_for(chrono::milliseconds(50));
 

@@ -34,13 +34,16 @@ int main(int argc, char *argv[]){
     
     shared_ptr<PCM512x_spi> pcm512x_spi_ptr;
     pcm512x_spi_ptr = shared_ptr<PCM512x_spi>(new PCM512x_spi(PCM512X_SPI_CHAN));
+    this_thread::sleep_for(chrono::milliseconds(500));
     
     //unmute
     LOG << "unmute DAC" << endl;
     RPi_GPIO::write(GPIO_UNMUTE, 0);
     this_thread::sleep_for(chrono::milliseconds(500));
     RPi_GPIO::write(GPIO_UNMUTE, 1);
-    this_thread::sleep_for(chrono::milliseconds(500));
+    //this_thread::sleep_for(chrono::milliseconds(500));
+    //RPi_GPIO::write(GPIO_UNMUTE, 0);
+    //this_thread::sleep_for(chrono::milliseconds(500));
 
     while (true){
         //RPi_GPIO::write(GPIO_UNMUTE, 1);

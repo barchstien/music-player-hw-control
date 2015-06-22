@@ -63,10 +63,21 @@ int SPI_Device::close_SPI(){
     close(fd);
 }
 
+//debug
+#include <bitset>
+//
+
 #include <netinet/in.h>
 
 void SPI_Device::send_buff(char* buff, int buff_len){
     struct spi_ioc_transfer spi ;
+    
+    //debug
+    std::bitset<8> data(buff[1]);
+    std::bitset<8> cmd(buff[0]);
+    int reg = ((int)buff[0]) >> 1;
+    int r_w = (int)(buff[0] & 0b00000001);
+    LOG << reg << " - W=0? " << r_w << " -cmd: " << cmd << " -data: " << data << endl;
     
     spi.tx_buf        = (__u64)buff;
     spi.rx_buf        = (__u64)buff;
