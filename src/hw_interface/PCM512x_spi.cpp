@@ -3,11 +3,11 @@
 using namespace std;
 
 #define PCM512X_SPI_CPOL_CPHA 0b01
-#define PCM512X_SPI_SPEED 50000
+#define PCM512X_SPI_SPEED 100000
 #define PCM512X_SPI_DELAY 0
 //TODO as for screen, it's 2 x 8(WL) rather than 1 x 16(WL) as in data sheet
 //? do define with reg num + config ?? #define PCM512X_PLL_D_0000
-#define PCM512X_SPI_WL 0
+#define PCM512X_SPI_WL 8
 
 #define REG_WRITE(x) ((x << 1) & 0b11111110)
 #define REG_READ(x)  ((x << 1) | 0b00000001)
@@ -37,11 +37,17 @@ PCM512x_spi::PCM512x_spi(int channel)
     init_SPI();
     char buff[2];
     
+    //reset
+    buff[0] = REG_WRITE(1);
+    buff[1] = 0b00000001;
+    //send_buff(buff, 1);
+    this_thread::sleep_for(chrono::milliseconds(1000));
+    
     //reg 13, set PLL reference to BCK (1), default SCK (0)
     buff[0] = REG_WRITE(PCM512X_PLL_REF);
     buff[1] = 0b00010000;
-    send_buff(buff, 2);
-    this_thread::sleep_for(chrono::milliseconds(50));
+    send_buff(buff, 1);
+    this_thread::sleep_for(chrono::milliseconds(1000));
     
     //P, keep default 0000: P=1
     /*buff[0] = REG_WRITE(PCM512X_PLL_P);
@@ -52,8 +58,8 @@ PCM512x_spi::PCM512x_spi(int channel)
     //J 100000: J=32
     buff[0] = REG_WRITE(PCM512X_PLL_J);
     buff[1] = 0b100000;
-    send_buff(buff, 2);
-    this_thread::sleep_for(chrono::milliseconds(50));
+    send_buff(buff, 1);
+    this_thread::sleep_for(chrono::milliseconds(1000));
     
     //D, keep default 0000: D=0
     /*buff[0] = REG_WRITE(PCM512X_PLL_D);
@@ -64,39 +70,39 @@ PCM512x_spi::PCM512x_spi(int channel)
     //R 0001: R=2
     buff[0] = REG_WRITE(PCM512X_PLL_R);
     buff[1] = 0b0001;
-    send_buff(buff, 2);
-    this_thread::sleep_for(chrono::milliseconds(50));
+    send_buff(buff, 1);
+    this_thread::sleep_for(chrono::milliseconds(1000));
     
     ////values from pcm512x datasheet - page 28 - 44,1kHz RSCK:32
     //DDSP 2
     buff[0] = REG_WRITE(PCM512X_PLL_DDSP);
     buff[1] = 0b0000001;
-    send_buff(buff, 2);
-    this_thread::sleep_for(chrono::milliseconds(50));
+    send_buff(buff, 1);
+    this_thread::sleep_for(chrono::milliseconds(1000));
     
     //DDAC 16 : 
     buff[0] = REG_WRITE(PCM512X_PLL_DDAC);
     buff[1] = 0b0001111;
-    send_buff(buff, 2);
-    this_thread::sleep_for(chrono::milliseconds(50));
+    send_buff(buff, 1);
+    this_thread::sleep_for(chrono::milliseconds(1000));
     
     //DNCP 4
     buff[0] = REG_WRITE(PCM512X_PLL_DNCP);
     buff[1] = 0b0000011;
-    send_buff(buff, 2);
-    this_thread::sleep_for(chrono::milliseconds(50));
+    send_buff(buff, 1);
+    this_thread::sleep_for(chrono::milliseconds(1000));
     
     //DOSR 8
     buff[0] = REG_WRITE(PCM512X_PLL_DOSR);
     buff[1] = 0b0000111;
-    send_buff(buff, 2);
-    this_thread::sleep_for(chrono::milliseconds(50));
+    send_buff(buff, 1);
+    this_thread::sleep_for(chrono::milliseconds(1000));
     
     //i2s format and word length (16bit) 0b00000000
     buff[0] = REG_WRITE(PCM512X_I2S_FORMAT_LENGTH);
     buff[1] = 0b00000000;
-    send_buff(buff, 2);
-    this_thread::sleep_for(chrono::milliseconds(50));
+    //send_buff(buff, 1);
+    this_thread::sleep_for(chrono::milliseconds(1000));
 
     LOG << "PCM512x_spi -- end" << endl;
 }
