@@ -1,3 +1,5 @@
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
 #music-player-hw-control
 cmake_minimum_required(VERSION 2.8)
 project(music-player-hw-control)
@@ -18,6 +20,14 @@ add_executable(mp-hw-control
     src/hw_interface/PCM512x_spi.cpp)
 
 include_directories(inc)
+#for some reason the pcm512x.h are empty
+#pacman -S linux-raspberrypi-headers
+#EXECUTE_PROCESS( COMMAND uname -r COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE )
+#include_directories(/usr/lib/modules/${ARCHITECTURE}/build/include/config/snd/soc)
+#message (${ARCHITECTURE})
+include_directories(/usr/include)
+include_directories(/root/dev/linux/sound/soc/codecs)
+include_directories(/root/dev/linux/include)
 
 #curl
 #include_directories(/usr/local/include)

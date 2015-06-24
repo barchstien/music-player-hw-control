@@ -18,7 +18,8 @@ public:
     PCM512x_spi(int channel);
     ~PCM512x_spi();
     
-protected:
+private:
+    
 
 };
 #endif

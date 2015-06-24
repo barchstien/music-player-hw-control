@@ -80,11 +80,12 @@ void SPI_Device::send_buff(char* buff, int buff_len){
     LOG << reg << " - W=0? " << r_w << " -cmd: " << cmd << " -data: " << data << endl;
     
     spi.tx_buf        = (__u64)buff;
-    spi.rx_buf        = (__u64)buff;
+    spi.rx_buf        = (__u64)0;
     spi.len           = buff_len;
     spi.delay_usecs   = delay_usec;
     spi.speed_hz      = speed;
     spi.bits_per_word = word_length;
+    spi.cs_change     = true;
 
     ioctl (fd, SPI_IOC_MESSAGE(1), &spi);
 }
