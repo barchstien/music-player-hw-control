@@ -1,4 +1,4 @@
-set(CMAKE_VERBOSE_MAKEFILE ON)
+#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 #music-player-hw-control
 cmake_minimum_required(VERSION 2.8)
@@ -27,8 +27,8 @@ include_directories(inc)
 #message (${ARCHITECTURE})
 #include_directories(/usr/include)
 #include_directories(/root/dev)
-include_directories(/root/dev/linux/include)
-include_directories(/root/dev/linux/include/uapi)
+#include_directories(/root/dev/linux/include)
+#include_directories(/root/dev/linux/include/uapi)
 
 #curl
 #include_directories(/usr/local/include)

@@ -19,7 +19,11 @@ public:
     ~PCM512x_spi();
     
 private:
-    
+    /** write data to register reg
+    @param reg 16 bits to contain the register page select (uint8_t)<page num>
+        and the register to write to
+    @param the byte to be written */
+    void register_write(uint16_t reg, uint8_t data);
 
 };
 #endif
