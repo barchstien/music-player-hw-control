@@ -25,9 +25,10 @@ include_directories(inc)
 #EXECUTE_PROCESS( COMMAND uname -r COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE )
 #include_directories(/usr/lib/modules/${ARCHITECTURE}/build/include/config/snd/soc)
 #message (${ARCHITECTURE})
-include_directories(/usr/include)
-include_directories(/root/dev/linux/sound/soc/codecs)
+#include_directories(/usr/include)
+#include_directories(/root/dev)
 include_directories(/root/dev/linux/include)
+include_directories(/root/dev/linux/include/uapi)
 
 #curl
 #include_directories(/usr/local/include)

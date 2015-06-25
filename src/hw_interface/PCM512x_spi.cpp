@@ -1,7 +1,7 @@
 
 
 #include "hw_interface/PCM512x_spi.h"
-#include "pcm512x.h"
+#include "linux/sound/soc/codecs/pcm512x.h"
 
 using namespace std;
 

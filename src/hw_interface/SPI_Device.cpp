@@ -6,7 +6,8 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <linux/spi/spidev.h>
+//#include <linux/spi/spidev.h>
+#include "linux/spi/spidev.h"
 //for std::strerror
 #include <cstring>
 
